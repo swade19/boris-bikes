@@ -1,12 +1,13 @@
 class DockingStation
-  
-  def release_bike
-    new_bike = Bike.new
-  end
-end
+	def initialize
+		@bikes = 0
+	end
 
-class Bike
-  def working
-    return 'Bike working'
-  end
+  def release_bike
+    Bike.new
+	end
+	
+	def dock(bike)
+
+	end
 end
