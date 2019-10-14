@@ -25,7 +25,4 @@ describe DockingStation do
       new_bike = Bike.new
       expect(subject.dock(new_bike)).to eq new_bike
     end
-
-
-
 end
