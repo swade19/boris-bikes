@@ -13,7 +13,8 @@ describe Bike do
 	end
 
 	it 'creates an instance of a broken bike' do
-		broken_bike = Bike.new(broken)
-		expect(broken_bike.working?).to eq false
+		broken_bike = Bike.new
+		broken_bike.report_as_broken
+		expect(broken_bike.report_as_broken).to eq true
 	end
 end
