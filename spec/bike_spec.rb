@@ -11,4 +11,9 @@ describe Bike do
 		new_bike.working?
 		expect(new_bike.working?).to eq true
 	end
+
+	it 'creates an instance of a broken bike' do
+		broken_bike = Bike.new(broken)
+		expect(broken_bike.working?).to eq false
+	end
 end
