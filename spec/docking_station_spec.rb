@@ -71,7 +71,7 @@ describe DockingStation do
     it "doesnt release broken bikes" do 
     docking_station = DockingStation.new 
     broken_bike = Bike.new.report_as_broken 
-    docking_station.dock_bike(broken_bike)
+    docking_station.dock(broken_bike)
     expect { docking_station.release_bike}.to raise_error "bike is broken"
     end 
 end
