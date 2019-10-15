@@ -1,11 +1,12 @@
 class DockingStation
-  attr_reader :bikes
-  attr_reader :capacity
+  attr_accessor :capacity
+
+  attr_reader :bikes 
   DEFAULT_CAPACITY = 20
 
-  def initialize
+  def initialize(capacity = DEFAULT_CAPACITY)
     @bikes = []
-    @capacity = DEFAULT_CAPACITY
+    @capacity = capacity
   end
 
   def dock(bike)
@@ -19,9 +20,10 @@ class DockingStation
   end
   
   private 
+
   
   def full?
-    @bikes.count >= DEFAULT_CAPACITY
+    @bikes.count >= @capacity
   end
 
   def empty?

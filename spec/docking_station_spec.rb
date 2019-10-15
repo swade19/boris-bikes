@@ -15,6 +15,25 @@ describe DockingStation do
       expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
     end
 
+    describe 'initialize' do
+      it 'has a variable capacity' do
+        new_dock = DockingStation.new(50)
+        50.times { new_dock.dock Bike.new }
+        expect{ new_dock.dock Bike.new }.to raise_error 'Docking station is full'
+      end
+    end
+
+    describe 'initialization' do 
+      subject { DockingStation.new } 
+      let (:bikes) { Bike.new } 
+      it 'defaults capacity' do 
+        DockingStation::DEFAULT_CAPACITY.times do 
+          subject.dock(bikes)
+        end 
+        expect{ subject.dock(bikes) }.to raise_error 'Docking station is full'
+      end 
+    end 
+
     it 'should call the bike method on docking station class' do
       new_dock = DockingStation.new
       expect(new_dock).to respond_to(:bikes)
@@ -47,5 +66,9 @@ describe DockingStation do
         subject.capacity.times { subject.dock Bike.new }
         expect { subject.dock Bike.new }.to raise_error 'Docking station is full'
       end
+    end
+
+    it "allows people to report broken bikes during docking" do
+      
     end
 end
