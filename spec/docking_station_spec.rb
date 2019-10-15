@@ -68,10 +68,10 @@ describe DockingStation do
       end
     end
 
-    # it "allows people to report broken bikes during docking" do
-    #   new_dock = DockingStation.new
-    #   new_bike = Bike.new
-    #   new_bike.not_working
-    #   expect(new_bike.not_working).to eq(not_working != working?)
-    # end
+    it "doesnt release broken bikes" do 
+    docking_station = DockingStation.new 
+    broken_bike = Bike.new.report_as_broken 
+    docking_station.dock_bike(broken_bike)
+    expect { docking_station.release_bike}.to raise_error "bike is broken"
+    end 
 end
