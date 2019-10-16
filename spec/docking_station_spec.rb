@@ -29,18 +29,13 @@ describe DockingStation do
     expect { subject.dock(bike) }.to raise_error "Docking station is full"
   end
 
-  it "should call the bike method on docking station class" do
-    new_dock = DockingStation.new
-    expect(new_dock).to respond_to(:bikes)
-  end
-
   it "docks bike" do
-    new_bike = Bike.new
+    new_bike = double(:bike)
     expect(subject.dock(new_bike)).to include(new_bike)
   end
 
   it "returns docked bikes" do
-    new_bike = Bike.new
+    new_bike = double(:bike)
     subject.dock(new_bike)
     expect(subject.bikes).to include(new_bike)
   end
@@ -50,14 +45,8 @@ describe DockingStation do
   end
 
   it "raises an error when docking station is full" do
-    subject.capacity.times { subject.dock Bike.new }
-    expect { subject.dock Bike.new }.to raise_error "Docking station is full"
-  end
-
-  it "allows users to report bikes as broken when docking" do
-    docking_station = DockingStation.new
-    bike = Bike.new
-    docking_station.dock(bike, true)
-    expect(bike.broken?).to eq(true)
+    bike = double(:bike)
+    subject.capacity.times { subject.dock bike }
+    expect { subject.dock bike }.to raise_error "Docking station is full"
   end
 end

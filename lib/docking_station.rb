@@ -9,9 +9,8 @@ class DockingStation
     @capacity = capacity
   end
 
-  def dock(bike, broken = false)
+  def dock(bike)
     raise "Docking station is full" if full?
-    bike.report_as_broken if broken == true
     @bikes << bike
   end
 

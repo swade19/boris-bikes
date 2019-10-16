@@ -15,4 +15,8 @@ describe Bike do
     subject.report_as_broken
     expect(subject.broken?).to eq true
   end
+  it "allows users to report bikes as broken when docking" do
+    subject.report_as_broken
+    expect(subject.broken?).to eq(true)
+  end
 end
