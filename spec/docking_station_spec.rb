@@ -1,14 +1,9 @@
 require "./lib/docking_station.rb"
 
 describe DockingStation do
+  subject { DockingStation.new }
   it "should create a new instance of the DockingStation class" do
-    new_dock = DockingStation.new
-    expect(new_dock).to be_a(DockingStation)
-  end
-
-  it "can store an object of bike class" do
-    bike = Bike.new
-    expect(bike).to be_instance_of(Bike)
+    expect(subject).to be_a(DockingStation)
   end
 
   it "releases a bike" do
@@ -23,18 +18,15 @@ describe DockingStation do
   end
 
   it "has a variable capacity" do
-    new_dock = DockingStation.new
-    expect { 21.times { new_dock.dock(Bike.new) } }.to raise_error "Docking station is full"
+    expect { 21.times { subject.dock(double(Bike.new)) } }.to raise_error "Docking station is full"
   end
 
-  subject { DockingStation.new }
-  let (:bikes) { Bike.new }
-
   it "defaults capacity" do
+    bike = double(:bike)
     DockingStation::DEFAULT_CAPACITY.times do
-      subject.dock(bikes)
+      subject.dock(bike)
     end
-    expect { subject.dock(bikes) }.to raise_error "Docking station is full"
+    expect { subject.dock(bike) }.to raise_error "Docking station is full"
   end
 
   it "should call the bike method on docking station class" do
