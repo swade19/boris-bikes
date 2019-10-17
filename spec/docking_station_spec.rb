@@ -2,7 +2,7 @@ require "./lib/docking_station.rb"
 
 describe DockingStation do
   let(:subject) { DockingStation.new }
-  let(:bike) { Bike.new }
+  let(:bike) { double :bike }
   it "should create a new instance of the DockingStation class" do
     expect(subject).to be_a(DockingStation)
   end
@@ -43,9 +43,9 @@ describe DockingStation do
   end
 
   it "releases a working bike" do
+    allow(bike).to receive(:broken?).and_return(false)
     subject.dock(bike)
-    subject.release_bike
-    expect(bike).to be_instance_of(Bike)
-    expect(bike.broken?).to eq(false)
+    released_bike = subject.release_bike
+    expect(released_bike).not_to be_broken
   end
 end
