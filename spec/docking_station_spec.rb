@@ -1,17 +1,13 @@
 require "./lib/docking_station.rb"
 
 describe DockingStation do
-  subject { DockingStation.new }
+  let(:subject) { DockingStation.new }
+  let(:bike) { Bike.new }
   it "should create a new instance of the DockingStation class" do
     expect(subject).to be_a(DockingStation)
   end
 
-  it "releases a bike" do
-    new_dock = DockingStation.new
-    bike = Bike.new
-    new_dock.dock(bike)
-    expect(new_dock.release_bike).to be_instance_of(Bike)
-  end
+  it { is_expected.to respond_to :release_bike }
 
   it "has a default capacity" do
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
@@ -22,7 +18,6 @@ describe DockingStation do
   end
 
   it "defaults capacity" do
-    bike = double(:bike)
     DockingStation::DEFAULT_CAPACITY.times do
       subject.dock(bike)
     end
@@ -30,14 +25,12 @@ describe DockingStation do
   end
 
   it "docks bike" do
-    new_bike = double(:bike)
-    expect(subject.dock(new_bike)).to include(new_bike)
+    expect(subject.dock(bike)).to include(bike)
   end
 
   it "returns docked bikes" do
-    new_bike = double(:bike)
-    subject.dock(new_bike)
-    expect(subject.bikes).to include(new_bike)
+    subject.dock(bike)
+    expect(subject.bikes).to include(bike)
   end
 
   it "raises an error when there are no bikes available" do
@@ -45,8 +38,14 @@ describe DockingStation do
   end
 
   it "raises an error when docking station is full" do
-    bike = double(:bike)
-    subject.capacity.times { subject.dock bike }
-    expect { subject.dock bike }.to raise_error "Docking station is full"
+    subject.capacity.times { subject.dock(bike) }
+    expect { subject.dock(bike) }.to raise_error "Docking station is full"
+  end
+
+  it "releases a working bike" do
+    subject.dock(bike)
+    subject.release_bike
+    expect(bike).to be_instance_of(Bike)
+    expect(bike.broken?).to eq(false)
   end
 end
