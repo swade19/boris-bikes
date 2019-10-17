@@ -1,6 +1,6 @@
 class Bike
   def initialize
-    @status = false
+    fix
   end
 
   def report_as_broken
@@ -9,5 +9,9 @@ class Bike
 
   def broken?
     @status
+  end
+
+  def fix
+    @status = false
   end
 end
